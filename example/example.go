@@ -26,5 +26,7 @@ func main() {
 	sugar.Errorf("abc")
 	Str1 := "Abc"
 	slog.Info(Str1)
+	slog.Info(str + "абв")
+	slog.Info("")
 	log.Fatal("normal message")
 }
