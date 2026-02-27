@@ -1,6 +1,8 @@
 package core
 
+import "go/ast"
+
 type Checker interface {
-	Check(string) error
+	Check([]ast.Expr) error
 	Name() string
 }

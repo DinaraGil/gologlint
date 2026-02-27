@@ -18,6 +18,7 @@ func run(pass *analysis.Pass) (any, error) {
 			}
 			if selExpr, ok := node.Fun.(*ast.SelectorExpr); ok {
 				obj := pass.TypesInfo.ObjectOf(selExpr.Sel)
+				//перечислить уровни
 				level, ok := zapcore.ParseLevel(strings.ToLower(obj.Name()))
 				if ok != nil {
 					return true

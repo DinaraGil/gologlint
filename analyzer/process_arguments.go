@@ -40,5 +40,5 @@ func check(args []ast.Expr) []error {
 	stringArgs := parseArgs(args)
 	fmt.Println(stringArgs)
 
-	return RunChecks(stringArgs, checkers)
+	return RunChecks(args, checkers)
 }
