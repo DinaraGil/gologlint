@@ -6,7 +6,7 @@ import (
 	"github.com/DinaraGil/gologlint/core"
 )
 
-func RunChecks(args []ast.Expr, checkers []core.Checker) []error {
+func checkLogArgs(checkers []core.Checker, args []ast.Expr) []error {
 	var errs []error
 
 	for _, c := range checkers {
