@@ -1,10 +1,11 @@
 package rules
 
 import (
-	"fmt"
 	"go/ast"
 	"strconv"
 	"unicode"
+
+	"github.com/DinaraGil/gologlint/core"
 )
 
 type FirstCharChecker struct{}
@@ -13,24 +14,36 @@ func (FirstCharChecker) Name() string {
 	return "first_char"
 }
 
-func (FirstCharChecker) Check(args []ast.Expr) error {
+func (FirstCharChecker) Check(args []ast.Expr) *core.LintError {
 	var result = false
+	var hasLit = false
 
 	IterateArgs(args, func(arg ast.Expr) bool {
 		switch v := arg.(type) {
+		case *ast.Ident:
+			return true
 		case *ast.BasicLit:
+			hasLit = true
 			unquoted, err := strconv.Unquote(v.Value)
-			if err == nil {
-				result = checkFirstLetter(unquoted)
+			if err != nil {
+				return true
+			}
+			result = checkFirstLetter(unquoted)
+			if !result {
+				return false
 			}
 		}
-		return false
+		return true
 	})
 
-	if !result {
-		return fmt.Errorf("log message should start with small letter")
+	if result || !hasLit {
+		return nil
 	}
-	return nil
+
+	return &core.LintError{
+		Rule: FirstCharChecker{}.Name(),
+		Msg:  "log message should start with small letter",
+	}
 }
 
 func checkFirstLetter(s string) bool {

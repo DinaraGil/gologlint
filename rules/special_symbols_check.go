@@ -32,6 +32,9 @@ func (SpecialSymbolsChecker) Check(args []ast.Expr) error {
 			if err == nil {
 				result = speacialSymbolsCheck(unquoted)
 			}
+		case *ast.Ident:
+			result = true
+			return false
 		}
 		return false
 	})

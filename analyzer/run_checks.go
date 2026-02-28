@@ -6,14 +6,12 @@ import (
 	"github.com/DinaraGil/gologlint/core"
 )
 
-func checkLogArgs(checkers []core.Checker, args []ast.Expr) []error {
-	var errs []error
-
+func checkLogArgs(checkers []core.Checker, args []ast.Expr) (lintErrors []core.LintError) {
 	for _, c := range checkers {
-		if err := c.Check(args); err != nil {
-			errs = append(errs, err)
+		checkRes := c.Check(args)
+		if checkRes != nil {
+			lintErrors = append(lintErrors, *checkRes)
 		}
 	}
-
-	return errs
+	return
 }

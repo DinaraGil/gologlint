@@ -3,6 +3,6 @@ package core
 import "go/ast"
 
 type Checker interface {
-	Check([]ast.Expr) error
+	Check([]ast.Expr) *LintError
 	Name() string
 }

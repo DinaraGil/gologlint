@@ -27,6 +27,9 @@ func (EngChecker) Check(args []ast.Expr) error {
 
 	IterateArgs(args, func(arg ast.Expr) bool {
 		switch v := arg.(type) {
+		case *ast.Ident:
+			result = true
+			return false
 		case *ast.BasicLit:
 			unquoted, err := strconv.Unquote(v.Value)
 			if err == nil {
@@ -37,7 +40,7 @@ func (EngChecker) Check(args []ast.Expr) error {
 	})
 
 	if !result {
-		return fmt.Errorf("log message should contain only English letter")
+		return fmt.Errorf("log message should contain only English letters")
 	}
 	return nil
 }
