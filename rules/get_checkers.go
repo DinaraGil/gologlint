@@ -8,7 +8,7 @@ func GetCheckers() []core.Checker {
 	return []core.Checker{
 		FirstCharChecker{},
 		EngChecker{},
-		//SpecialSymbolsChecker{},
-		//SensitiveChecker{},
+		SpecialSymbolsChecker{},
+		SensitiveChecker{},
 	}
 }
