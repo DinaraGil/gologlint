@@ -40,6 +40,14 @@ func TestFirstCharChecker(t *testing.T) {
 			}`,
 			expectingError: false,
 		},
+		{
+			name: "empty log message should not return error",
+			code: `package main
+			func main() {
+				log.Info("")
+			}`,
+			expectingError: false,
+		},
 	}
 
 	checker := rules.FirstCharChecker{}

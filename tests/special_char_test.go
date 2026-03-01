@@ -33,6 +33,14 @@ func TestSpecialCharChecker(t *testing.T) {
 			expectingError: true,
 		},
 		{
+			name: "only special characters should return error",
+			code: `package main
+				func main() {
+					log.Info("!!!")
+				}`,
+			expectingError: true,
+		},
+		{
 			name: "log message without special symbols should not return error",
 			code: `package main
 			func main() {
@@ -54,6 +62,14 @@ func TestSpecialCharChecker(t *testing.T) {
 			func main() {
 				log.Warn("something went wrong")
 			}`,
+			expectingError: false,
+		},
+		{
+			name: "empty log message should not return error",
+			code: `package main
+				func main() {
+					log.Info("")
+				}`,
 			expectingError: false,
 		},
 	}

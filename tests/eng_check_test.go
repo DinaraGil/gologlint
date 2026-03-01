@@ -25,6 +25,14 @@ func TestEnglishCheck(t *testing.T) {
 			expectingError: true,
 		},
 		{
+			name: "emoji should return error",
+			code: `package main
+			func main() {
+				log.Info("server started 🚀")
+			}`,
+			expectingError: true,
+		},
+		{
 			name: "log message in english should not return error",
 			code: `package main
 			func main() {
@@ -38,6 +46,22 @@ func TestEnglishCheck(t *testing.T) {
 			func main() {
 				log.Error("failed to connect to database")
 			}`,
+			expectingError: false,
+		},
+		{
+			name: "empty log message should not return error",
+			code: `package main
+			func main() {
+				log.Info("")
+			}`,
+			expectingError: false,
+		},
+		{
+			name: "english with numbers should not return error",
+			code: `package main
+				func main() {
+					log.Info("starting server on port 8080")
+				}`,
 			expectingError: false,
 		},
 	}

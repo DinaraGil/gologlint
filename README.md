@@ -45,6 +45,17 @@ custom-gcl.exe
 ```bash
 ./custom-gcl run main.go
 ```
+## Клонирование проекта
+```
+git clone https://github.com/DinaraGil/gologlint.git
+cd gologlint
+```
+## Тестовый файл в example/
+Build линтера и запуск для ./example
+```
+ go build -o bin/gologlint.exe ./cmd/gologlint
+./bin/gologlint.exe ./example
+ ```
 
 ## Тестирование
 Unit-тесты для каждого правила в tests/

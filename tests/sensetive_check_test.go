@@ -25,11 +25,20 @@ func TestSensitiveCharChecker(t *testing.T) {
 			expectingError: true,
 		},
 		{
-			name: "word token in log message should not return error",
+			name: "word token in log message should return error",
 			code: `package main
 			func main() {
 				log.Info("token: " + token)
 			}`,
+			expectingError: true,
+		},
+
+		{
+			name: "uppercase message with sensitive word should return error",
+			code: `package main
+				func main() {
+					log.Info("Password is set" + pass)
+				}`,
 			expectingError: true,
 		},
 		{
@@ -53,6 +62,14 @@ func TestSensitiveCharChecker(t *testing.T) {
 			code: `package main
 			func main() {
 				log.Info("token validated")
+			}`,
+			expectingError: false,
+		},
+		{
+			name: "empty log message should not return error",
+			code: `package main
+			func main() {
+				log.Debug("")
 			}`,
 			expectingError: false,
 		},
