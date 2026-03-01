@@ -1,4 +1,4 @@
-package gologlint
+package main
 
 import (
 	"github.com/DinaraGil/gologlint/analyzer"
