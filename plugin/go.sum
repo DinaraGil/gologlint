@@ -1,0 +1,4 @@
+github.com/DinaraGil/gologlint v1.0.0 h1:LX4qYXailmapSY6xOdBmwQlXTgLLdE25Rq5qvCl7KdE=
+github.com/DinaraGil/gologlint v1.0.0/go.mod h1:Ljh/HxBim6J/W0mzUD11tigx15Jfb55tM+BU4FMads8=
+golang.org/x/tools v0.42.0 h1:uNgphsn75Tdz5Ji2q36v/nsFSfR/9BRFvqhGBaJGd5k=
+golang.org/x/tools v0.42.0/go.mod h1:Ma6lCIwGZvHK6XtgbswSoWroEkhugApmsXyrUmBhfr0=
