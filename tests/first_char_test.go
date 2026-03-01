@@ -48,13 +48,13 @@ func TestFirstCharChecker(t *testing.T) {
 		t.Run(testCase.name, func(t *testing.T) {
 			args := extractArgs(t, testCase.code)
 
-			err := checker.Check(args)
+			lintErr := checker.Check(args)
 
-			if testCase.expectingError && err == nil {
+			if testCase.expectingError && lintErr == nil {
 				t.Errorf("expected error, got nil")
 			}
-			if !testCase.expectingError && err != nil {
-				t.Errorf("unexpected error: %v", err)
+			if !testCase.expectingError && lintErr != nil {
+				t.Errorf("unexpected error: %s", lintErr.Msg)
 			}
 		})
 	}

@@ -16,27 +16,26 @@ func (FirstCharChecker) Name() string {
 
 func (FirstCharChecker) Check(args []ast.Expr) *core.LintError {
 	var result = false
-	var hasLit = false
+	var noLit = true
 
 	IterateArgs(args, func(arg ast.Expr) bool {
 		switch v := arg.(type) {
 		case *ast.Ident:
-			return true
+			return false
 		case *ast.BasicLit:
-			hasLit = true
+			noLit = false
 			unquoted, err := strconv.Unquote(v.Value)
 			if err != nil {
-				return true
+				result = checkFirstLetter(v.Value)
+			} else {
+				result = checkFirstLetter(unquoted)
 			}
-			result = checkFirstLetter(unquoted)
-			if !result {
-				return false
-			}
+			return false
 		}
 		return true
 	})
 
-	if result || !hasLit {
+	if result || noLit {
 		return nil
 	}
 

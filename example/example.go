@@ -28,6 +28,7 @@ func main() {
 	slog.Info(Str1)
 	slog.Info(str + "абв")
 	slog.Info("")
+	sugar.Infof("%s hello", "hi")
 	token := "aaa"
 	slog.Info("token: " + token)
 	log.Fatal("normal message")

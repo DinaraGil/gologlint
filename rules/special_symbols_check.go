@@ -1,10 +1,11 @@
 package rules
 
 import (
-	"fmt"
 	"go/ast"
 	"strconv"
 	"unicode"
+
+	"github.com/DinaraGil/gologlint/core"
 )
 
 type SpecialSymbolsChecker struct{}
@@ -13,7 +14,7 @@ func (SpecialSymbolsChecker) Name() string {
 	return "special symbols"
 }
 
-func speacialSymbolsCheck(s string) bool {
+func specialSymbolsCheck(s string) bool {
 	for _, r := range s {
 		if !(unicode.IsLetter(r) || unicode.IsDigit(r) || unicode.IsSpace(r)) {
 			return false
@@ -22,25 +23,33 @@ func speacialSymbolsCheck(s string) bool {
 	return true
 }
 
-func (SpecialSymbolsChecker) Check(args []ast.Expr) error {
+func (SpecialSymbolsChecker) Check(args []ast.Expr) *core.LintError {
 	var result = false
+	var noLit = true
 
 	IterateArgs(args, func(arg ast.Expr) bool {
 		switch v := arg.(type) {
 		case *ast.BasicLit:
+			noLit = false
 			unquoted, err := strconv.Unquote(v.Value)
 			if err == nil {
-				result = speacialSymbolsCheck(unquoted)
+				result = specialSymbolsCheck(unquoted)
+			} else {
+				result = specialSymbolsCheck(v.Value)
 			}
-		case *ast.Ident:
-			result = true
-			return false
+			if !result {
+				return false
+			}
 		}
-		return false
+		return true
 	})
 
-	if !result {
-		return fmt.Errorf("log message should not contain special symbols")
+	if noLit || result {
+		return nil
 	}
-	return nil
+
+	return &core.LintError{
+		Rule: SpecialSymbolsChecker{}.Name(),
+		Msg:  "log message should not contain special symbols",
+	}
 }
