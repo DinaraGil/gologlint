@@ -1,0 +1,13 @@
+run:
+  timeout: 5m
+
+linters:
+  enable:
+    - gologlint
+
+linters-settings:
+  custom:
+    gologlint:
+      type: module
+      description: Custom logging analyzer
+      settings: {}
