@@ -3,8 +3,9 @@ package analyzer
 import (
 	"go/ast"
 
-	"github.com/DinaraGil/gologlint/rules"
 	"golang.org/x/tools/go/analysis"
+
+	"github.com/DinaraGil/gologlint/rules"
 )
 
 func run(pass *analysis.Pass) (any, error) {

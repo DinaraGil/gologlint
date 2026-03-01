@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/DinaraGil/gologlint/analyzer"
 	"golang.org/x/tools/go/analysis/singlechecker"
+
+	"github.com/DinaraGil/gologlint/analyzer"
 )
 
 func main() {
